@@ -1,0 +1,66 @@
+HOW TO CREATE THE JAR FILE - JAVAMICROPROJECT
+================================================
+Run these commands IN ORDER in PowerShell.
+Project folder: D:\javamicroproject
+
+----------------------------------------------
+STEP 0: Go to project folder
+----------------------------------------------
+cd D:\javamicroproject
+
+
+----------------------------------------------
+STEP 1: Create lib folder (skip if already done)
+----------------------------------------------
+mkdir lib
+
+
+----------------------------------------------
+STEP 2: Copy MySQL connector jar into lib (skip if already done)
+----------------------------------------------
+copy "C:\Users\My PC\Downloads\download\mysql-connector-j-9.6.0\mysql-connector-j-9.6.0\mysql-connector-j-9.6.0.jar" lib\
+
+
+----------------------------------------------
+STEP 3: Compile all java files into "out" folder
+----------------------------------------------
+mkdir out
+Get-ChildItem -Recurse -Filter *.java | ForEach-Object { $_.FullName } | Out-File sources.txt -Encoding ASCII
+javac -d out -cp "lib\*" "@sources.txt"
+
+
+----------------------------------------------
+STEP 4: Copy image resources into "out" folder
+----------------------------------------------
+copy air.png out\
+copy airicon.png out\
+copy airplane.png out\
+copy "WhatsApp Image 2026-03-19 at 3.16.25 PM.jpeg" out\
+
+
+----------------------------------------------
+STEP 5: Create manifest file (tells JAR which class to run)
+----------------------------------------------
+"Main-Class: start.start`nClass-Path: lib/mysql-connector-j-9.6.0.jar`n" | Out-File manifest.txt -Encoding ASCII
+
+
+----------------------------------------------
+STEP 6: Build the JAR file
+----------------------------------------------
+cd out
+jar cfm ..\AirlineReservation.jar ..\manifest.txt .
+cd ..
+
+
+----------------------------------------------
+STEP 7: Run the JAR file
+----------------------------------------------
+java -jar AirlineReservation.jar
+
+
+================================================
+NOTES:
+- The "lib" folder must always sit next to AirlineReservation.jar when running it,
+  because the manifest points to lib/mysql-connector-j-9.6.0.jar as a relative path.
+- If java -jar fails, copy the exact error text and send it back for a fix.
+================================================
