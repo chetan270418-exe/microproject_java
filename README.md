@@ -1,4 +1,4 @@
-  =================================# ✈️ Airline Reservation System================================================================================================
+# ✈️ Airline Reservation System
 
 A desktop-based Airline Reservation System built with **Java Swing** and **MySQL**, featuring user login, flight booking, and booking confirmation — packaged as a runnable JAR file.
 
